@@ -1,0 +1,53 @@
+// inside some widget
+
+_showFormDialog(BuildContext context) {
+    return showDialog(
+        context: context,
+        barrierDismissible: true,
+        builder: (param) {
+          return AlertDialog(
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(context),
+                style: TextButton.styleFrom(
+                  primary: Colors.white,
+                  backgroundColor: Colors.blueGrey,
+                  onSurface: Colors.grey,
+                ),
+                child: Text(
+                  'Cancel',
+                ),
+              ),
+              TextButton(
+                onPressed: () async {
+                  await DatabaseHelper.instance.add(
+                    Category(name: textController.text),
+                  );
+                  // setState(() {
+                  //   textController.clear();
+                  // });
+                },
+                style: TextButton.styleFrom(
+                  primary: Colors.white,
+                  backgroundColor: Colors.redAccent,
+                  onSurface: Colors.grey,
+                ),
+                child: Text(
+                  'Save',
+                ),
+              ),
+            ],
+            title: Text('Categories Form'),
+            content: SingleChildScrollView(
+              child: Column(
+                children: [
+                  TextField(
+                    decoration: InputDecoration(
+                        hintText: 'Write a category', labelText: 'Category'),
+                  ),
+                ],
+              ),
+            ),
+          );
+        });
+  }
